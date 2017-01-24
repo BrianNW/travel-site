@@ -1,0 +1,20 @@
+/*Do not edit modules/_sprite directly as it is generated automatically by Gulp.  Instead edit gulp/templates/sprites*/
+/*Make sure to run gulp icons in terminal for this to take effect*/
+
+
+
+{{#shapes}}
+  {{#first}}
+    .icon {
+      background-image: url('/assets/images/sprites/{{{sprite}}}');
+    }
+  {{/first}}
+
+  .icon--{{base}} {
+    width: {{width.outer}}px;
+    height: {{height.outer}}px;
+    background-position: {{position.relative.xy}};
+  }
+{{/shapes}}
+
+/*Actual sprite.css file located in /temp/sprite/css/*/
