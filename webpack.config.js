@@ -1,6 +1,6 @@
 module.exports = {
   entry: "./app/assets/scripts/App.js",
-  output:  {
+  output: {
     path: "./app/temp/scripts",
     filename: "App.js"
   }
