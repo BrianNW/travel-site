@@ -2,26 +2,34 @@ var gulp = require('gulp'),
 watch = require('gulp-watch'),
 browserSync = require('browser-sync').create();
 
-gulp.task('watch', function() {   //starts a task to watch for changes in the html file
+gulp.task('watch', function() {
 
-  browserSync.init({ //initializes browserSync server in base directory app
-    notify: false,  //will remove changes notification
+  browserSync.init({
+    notify: false,
     server: {
       baseDir: "app"
     }
   });
 
   watch('./app/index.html', function() {
-      browserSync.reload();
+    browserSync.reload();
   });
-}); //end html watch task
 
-  watch('./app/assets/styles/**/*.css', function() {    //starts a task to watch for changes in the css file
+  watch('./app/assets/styles/**/*.css', function() {
     gulp.start('cssInject');
   });
 
-  //['styles'] will run and complete before cssInject task starts
-    gulp.task('cssInject', ['styles'], function() {  //make sure to add return since it's an async function
-      return gulp.src('./app/temp/styles/styles.css')
-        .pipe(browserSync.stream());   //makes whatever we pipe into browserSync available in the browser
-    });
+  watch('./app/assets/scripts/**/*.js', function() {
+    gulp.start('scriptsRefresh');
+  })
+
+});
+
+gulp.task('cssInject', ['styles'], function() {
+  return gulp.src('./app/temp/styles/styles.css')
+    .pipe(browserSync.stream());
+});
+
+gulp.task('scriptsRefresh', ['scripts'], function() {
+  browserSync.reload();
+});
